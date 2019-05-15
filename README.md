@@ -12,7 +12,7 @@
 
 **Date:** 2019-5-5
 
-**Description:** This package, based on 4sU-seq data and RNA-seq data, analyzes the transcription, processing and degradation rates of genes. pulseTD can not only recognize the transcriptional dynamic rate of the measurement time points, but also obtain continuous changes in transcriptional dynamics. More importantly, it is able to predict the trend of mRNA transcription and expression changes in the future. In terms of performance, pulseTD has better robustness and accuracy than other methods.
+**Description:** A tool for analyzing the transcription, processing and degradation rates of genes by 4sU-seq(the Metabolic Label 4-thiouridine) data and RNA-seq(RNA sequencing) data. It can not only recognize the transcriptional dynamic rate at the measurement time points,but also obtain continuous changes in transcriptional dynamics. More importantly,it is able to predict the trend of mRNA(Mature RNA) transcription and expression changes in the future. In terms of performance, 'pulseTD' has good robustness and accuracy.
 
 **License:** GPL-2
 
@@ -21,6 +21,8 @@
 **Depends:** R (>= 3.4.0)
 
 **Imports:** AnnotationDbi,SummarizedExperiment,Rsamtools,Biobase,S4Vectors,methods,parallel,GenomicFeatures, ggplot2, grid, GenomicAlignments
+
+**URL:** https://github.com/bioWzz/pulseTD_0.1.0
 
 **RoxygenNote:** 6.1.1
 
