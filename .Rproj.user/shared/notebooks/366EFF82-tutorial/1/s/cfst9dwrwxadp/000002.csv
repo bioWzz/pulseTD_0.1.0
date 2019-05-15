@@ -1,0 +1,3 @@
+"0","data('preExp', package='pulseTD')"
+"0","df = data.frame(preExp[['NM_001002011']])"
+"0","head(df)"

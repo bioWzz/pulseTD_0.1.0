@@ -1,0 +1,5 @@
+"0","rpkmres <- estimateExpression(txdb,c(test_path,test_path2), by='gene')"
+"2","start to ready db
+"
+"2","Error in exonsBy(txdb, ""gene"") : object 'txdb' not found
+"

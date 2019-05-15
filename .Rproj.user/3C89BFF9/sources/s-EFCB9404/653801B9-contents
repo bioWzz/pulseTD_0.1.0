@@ -1,0 +1,24 @@
+install.packages(c("drat","git2r"))
+# tools::write_PACKAGES("E:/pluseTD/src/contrib/")
+# tools::write_PACKAGES("E:/pluseTD/bin/windows/contrib/3.2")
+# tools::write_PACKAGES("E:/pluseTD/bin/macosx/contrib/3.2")
+
+## Create an empty repository
+drat::initRepo(name = "pulsetd", basepath = "E:/pluseTD/GitHub")
+# Store the basepath + name
+options(pulseTD = "E:/pluseTD/GitHub/pulsetd")
+
+# Add a package to it
+drat::insertPackage("E:/pluseTD/pulseTD_0.1.0.tar.gz",      # Path to src 
+                    repodir = "E:/pluseTD/GitHub/pulsetd",  # Location of git repo: not need if dratRepo set
+                    action="prune",                         # Remove old package version
+                    commit = T)                             # Commit to repo
+# drat::pruneRepo()
+
+# Open repository
+repo = git2r::repository("E:/pluseTD/GitHub/pulsetd")
+cred = git2r::cred_user_pass("woshixinxin", "woshixinxin123456")
+# Push changes in local repository to GitHub
+git2r::push(repo, "origin", "refs/heads/gh-pages", credentials = cred)
+
+drat::addRepo("origin","http://woshixinxin.github.io/pulsetd")

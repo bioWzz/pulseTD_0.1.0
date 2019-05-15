@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1557879706781.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "8BED408A",
+    "lastKnownWriteTime" : 1557749420,
+    "last_content_update" : 1557749420,
+    "path" : "E:/pluseTD/pulseTD/R/pulseModel.R",
+    "project_path" : "R/pulseModel.R",
+    "properties" : {
+        "cursorPosition" : "2,103",
+        "scrollLine" : "0"
+    },
+    "relative_order" : 6,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

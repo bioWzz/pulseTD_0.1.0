@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1556501898992.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "A6DFBB31",
+    "lastKnownWriteTime" : 1556452286,
+    "last_content_update" : 1556452286,
+    "path" : "E:/pluseTD/pulseTD/inst/t.R",
+    "project_path" : "inst/t.R",
+    "properties" : {
+        "cursorPosition" : "17,8",
+        "scrollLine" : "0"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

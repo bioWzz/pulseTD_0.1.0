@@ -1,0 +1,12 @@
+library(pheatmap)
+k3<-read.table("D:\\Fusion\\Kis3_go.txt")
+pheatmap(k3[-1,-1],
+         cluster_rows = TRUE,
+         cluster_cols = TRUE,
+         clustering_distance_cols = "euclidean",clustering_method ="ward.D",
+         show_colnames = F,
+         show_rownames = F,
+         treeheight_col = 60,
+         cellwidth = 0.5,
+         cellheight = 1,
+         color = colorRampPalette(c("#2F4F4F","#6B8E23","#B4EEB4","#CDC9C9","#CD6839","#B22222"))(50))

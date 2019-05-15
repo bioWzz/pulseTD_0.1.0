@@ -1,0 +1,120 @@
+require(TxDb.Hsapiens.UCSC.hg19.knownGene)
+
+txdb <- TxDb.Hsapiens.UCSC.hg19.knownGene
+dirpath = 'c:/Users/Administrator/Desktop'
+test_path <- file.path(dirpath,'SRR1523653.sorted.bam')
+test_path2 <- file.path(dirpath,'SRR1523654.sorted.bam')
+res = estimateExpression(txdb, c(test_path,test_path2), by='gene')
+
+# 读取表达文件
+rpkms_rep1 = list(foursu_exons=c(),
+                  total_exons=c(),
+                  foursu_introns=c(),
+                  total_introns=c()
+)
+rpkms_rep2 = list(foursu_exons=c(),
+                  total_exons=c(),
+                  foursu_introns=c(),
+                  total_introns=c()
+)
+
+dirpath = 'D:/output'
+filename = list.files(dirpath)
+rep1_geneid=c()
+rep2_geneid=c()
+for(name in filename){
+  if(substr(name,12,12)=="1"){
+    tmpfile = read.table(paste(dirpath,name,sep='/'), header = TRUE)
+    tmpfile = tmpfile[order(tmpfile$id),]
+    rpkms_rep1$foursu_exons=cbind(rpkms_rep1$foursu_exons,tmpfile$foursu_exons)
+    rpkms_rep1$foursu_introns=cbind(rpkms_rep1$foursu_introns,tmpfile$foursu_introns)
+    rpkms_rep1$total_exons=cbind(rpkms_rep1$total_exons,tmpfile$total_exons)
+    rpkms_rep1$total_introns=cbind(rpkms_rep1$total_introns,tmpfile$total_introns)
+    
+  }
+  if(substr(name,12,12)=="2"){
+    tmpfile = read.table(paste(dirpath,name,sep='/'), header = TRUE)
+    tmpfile = tmpfile[order(tmpfile$id),]
+    rpkms_rep2$foursu_exons=cbind(rpkms_rep2$foursu_exons,tmpfile$foursu_exons)
+    rpkms_rep2$foursu_introns=cbind(rpkms_rep2$foursu_introns,tmpfile$foursu_introns)
+    rpkms_rep2$total_exons=cbind(rpkms_rep2$total_exons,tmpfile$total_exons)
+    rpkms_rep2$total_introns=cbind(rpkms_rep2$total_introns,tmpfile$total_introns)
+  }
+}
+rownames(rpkms_rep1$foursu_exons) = tmpfile$id
+rownames(rpkms_rep1$foursu_introns) = tmpfile$id
+rownames(rpkms_rep1$total_exons) = tmpfile$id
+rownames(rpkms_rep1$total_introns) = tmpfile$id
+rownames(rpkms_rep2$foursu_exons) = tmpfile$id
+rownames(rpkms_rep2$foursu_introns) = tmpfile$id
+rownames(rpkms_rep2$total_exons) = tmpfile$id
+rownames(rpkms_rep2$total_introns) = tmpfile$id
+
+colnames(rpkms_rep1$foursu_exons) = c('4su_t_0','4su_t_2','4su_t_4','4su_t_6','4su_t_8')
+colnames(rpkms_rep1$foursu_introns) = c('4su_t_0','4su_t_2','4su_t_4','4su_t_6','4su_t_8')
+colnames(rpkms_rep1$total_exons) = c('total_t_0','total_t_2','total_t_4','total_t_6','total_t_8')
+colnames(rpkms_rep1$total_introns) = c('total_t_0','total_t_2','total_t_4','total_t_6','total_t_8')
+colnames(rpkms_rep2$foursu_exons) = c('4su_t_0','4su_t_2','4su_t_4','4su_t_6','4su_t_8')
+colnames(rpkms_rep2$foursu_introns) = c('4su_t_0','4su_t_2','4su_t_4','4su_t_6','4su_t_8')
+colnames(rpkms_rep2$total_exons) = c('total_t_0','total_t_2','total_t_4','total_t_6','total_t_8')
+colnames(rpkms_rep2$total_introns) = c('total_t_0','total_t_2','total_t_4','total_t_6','total_t_8')
+filterzeros <- function(data){
+  rownum = c()
+  for(i in 1:dim(data)[1]){
+    if(length(which(data[i,]==0)) >= 5){
+      rownum = c(rownum, i)
+    }else if(length(which(data[i,]<=0.1)) >=5){
+      rownum = c(rownum, i)
+    }
+  }
+  data=data[-rownum,]
+}
+labexon = rpkms_rep1$foursu_exons
+labintr = rpkms_rep1$foursu_introns
+totexon = rpkms_rep1$total_exons
+totintr = rpkms_rep1$total_introns
+
+labexon = filterzeros(labexon)
+labintr = filterzeros(labintr)
+totexon = filterzeros(totexon)
+totintr = filterzeros(totintr)
+
+labexon2 = rpkms_rep2$foursu_exons
+labintr2 = rpkms_rep2$foursu_introns
+totexon2 = rpkms_rep2$total_exons
+totintr2 = rpkms_rep2$total_introns
+
+labexon2 = filterzeros(labexon2)
+labintr2 = filterzeros(labintr2)
+totexon2 = filterzeros(totexon2)
+totintr2 = filterzeros(totintr2)
+
+genelist2 = intersect(rownames(labexon2),rownames(labintr2))
+genelist2 = intersect(genelist2,rownames(totexon2))
+genelist2 = intersect(genelist2,rownames(totintr2))
+
+
+genelist = intersect(rownames(labexon),rownames(labintr))
+genelist = intersect(genelist,rownames(totexon))
+genelist = intersect(genelist,rownames(totintr))
+
+genelist = intersect(genelist, genelist2)
+labexon = labexon[genelist,]
+labintr = labintr[genelist,]
+totexon = totexon[genelist,]
+totintr = totintr[genelist,]
+labexon2 = labexon2[genelist,]
+labintr2 = labintr2[genelist,]
+totexon2 = totexon2[genelist,]
+totintr2 = totintr2[genelist,]
+gn = genelist
+myPT = res$pre_exp[gn,]
+myTT = res$total_exp[gn,]
+
+cor(myPT[,1], labintr[,1])
+cor(myTT[,1], labexon[,1])
+cor(myPT[,2], labintr[,2])
+cor(myTT[,2], labexon[,2])
+
+
+

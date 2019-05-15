@@ -1,0 +1,2 @@
+"0","data('pulseRates', package='pulseTD')"
+"0","plotRates(pulseRates, 15)"
